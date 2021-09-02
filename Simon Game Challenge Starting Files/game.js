@@ -1,4 +1,5 @@
 const buttonColours = ["red", "blue", "green", "yellow"];
+const userClickedPattern = [];
 const gamePattern = [];
 
 const audioByColor = ["redAudio", "blueAudio", "greenAudio", "yellowAudio"];
@@ -44,9 +45,11 @@ function nextSequence() {
     playAudioButton(randomChosenColour);
 }
 
-nextSequence();
-nextSequence();
-nextSequence();
-nextSequence();
-nextSequence();
-nextSequence();
+
+
+$(".btn").click(function() {
+    var userChosenColour = $(this).attr("id");
+    userClickedPattern.push(userChosenColour);
+    blinkButton(userChosenColour);
+    playAudioButton(userChosenColour);
+});
