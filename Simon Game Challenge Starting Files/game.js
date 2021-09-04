@@ -2,6 +2,8 @@ const buttonColours = ["red", "blue", "green", "yellow"];
 const userClickedPattern = [];
 const gamePattern = [];
 
+var level = 0;
+
 const audioByColor = ["redAudio", "blueAudio", "greenAudio", "yellowAudio"];
 
 var redAudio = new Audio("sounds/red.mp3");
@@ -26,19 +28,19 @@ function playAudioButton(buttonColor) {
         case "red":
             redAudio.play();
             break;
-    
+
         case "blue":
             blueAudio.play();
             break;
-    
+
         case "green":
             greenAudio.play();
             break;
-    
+
         case "yellow":
             yellowAudio.play();
             break;
-    
+
         default:
             break;
     }
@@ -59,3 +61,4 @@ $(".btn").click(function() {
     playAudioButton(userChosenColour);
 });
 
+$.keypress()
