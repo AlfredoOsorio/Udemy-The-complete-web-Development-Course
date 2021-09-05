@@ -73,13 +73,19 @@ function checkAnswer(currentLevel) {
         }
     }else{
         console.log("wrong");
-        $("#level-title").text("Game Over");
+        $("#level-title").text("Game Over, Press any key to restart");
         wrongAudio.play();
         $("body").addClass("game-over");
         setTimeout(function() {
             $("body").removeClass("game-over");
-        }, 200);
+        }, 100);
+        startOver();
     }
+}
+
+function startOver() {
+    level = 0;
+    gamePattern = [];
 }
 
 function increaseLevel() {
