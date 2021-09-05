@@ -52,6 +52,7 @@ function nextSequence() {
     gamePattern.push(randomChosenColour);
     animatePress(randomChosenColour);
     playAudioButton(randomChosenColour);
+    increaseLevel();
 }
 
 $(".btn").click(function() {
@@ -59,6 +60,25 @@ $(".btn").click(function() {
     userClickedPattern.push(userChosenColour);
     animatePress(userChosenColour);
     playAudioButton(userChosenColour);
+    checkAnswer(userClickedPattern.length);
 });
 
-$.keypress()
+funtion checkAnswer(currentLevel) {
+    if(userClickedPattern[currentLevel] == gamePattern[currentLevel]) {
+        console.log("success");
+    }else{
+        console.log("wrong");
+    }
+}
+
+function increaseLevel() {
+    level++;
+    $("#level-title").text("level " + level);
+}
+
+$(document).keypress(function() {
+    if(level == 0) {
+        nextSequence();
+        $("#level-title").text("level " + level);
+    }
+});
