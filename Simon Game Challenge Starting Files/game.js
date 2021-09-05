@@ -1,19 +1,18 @@
 const buttonColours = ["red", "blue", "green", "yellow"];
-const userClickedPattern = [];
-const gamePattern = [];
+var userClickedPattern = [];
+var gamePattern = [];
 
 var level = 0;
-
-const audioByColor = ["redAudio", "blueAudio", "greenAudio", "yellowAudio"];
 
 var redAudio = new Audio("sounds/red.mp3");
 var blueAudio = new Audio("sounds/blue.mp3");
 var greenAudio = new Audio("sounds/green.mp3");
 var yellowAudio = new Audio("sounds/yellow.mp3");
+var wrongAudio = new Audio("sounds/wrong.mp3");
 
-/* function blinkButton(buttonColor) {
+function blinkButton(buttonColor) {
     $("#" + buttonColor).fadeOut(200).fadeIn(200);
-} */
+}
 
 function animatePress(currentColour) {
     $("#" + currentColour).addClass("pressed");
@@ -47,18 +46,19 @@ function playAudioButton(buttonColor) {
 }
 
 function nextSequence() {
+    userClickedPattern = [];
+    increaseLevel();
     var randomNumber = Math.floor(Math.random() * 4);
     var randomChosenColour = buttonColours[randomNumber];
     gamePattern.push(randomChosenColour);
     animatePress(randomChosenColour);
     playAudioButton(randomChosenColour);
-    increaseLevel();
 }
 
 $(".btn").click(function() {
     var userChosenColour = $(this).attr("id");
     userClickedPattern.push(userChosenColour);
-    animatePress(userChosenColour);
+    blinkButton(userChosenColour);
     playAudioButton(userChosenColour);
     checkAnswer(userClickedPattern.length - 1);
 });
@@ -66,14 +66,20 @@ $(".btn").click(function() {
 function checkAnswer(currentLevel) {
     if((userClickedPattern[currentLevel]) == (gamePattern[currentLevel])) {
         console.log("success");
-        if(userClickedPattern.length == level) {
-            setTimeout(nextSequence(), 1000);
+        if(userClickedPattern.length == gamePattern.length) {
+            setTimeout(function() {
+                nextSequence();
+            }, 1000);
         }
     }else{
         console.log("wrong");
+        $("#level-title").text("Game Over");
+        wrongAudio.play();
+        $("body").addClass("game-over");
+        setTimeout(function() {
+            $("body").removeClass("game-over");
+        }, 200);
     }
-    console.log(userClickedPattern[currentLevel]);
-    console.log(gamePattern[currentLevel]);
 }
 
 function increaseLevel() {
@@ -84,6 +90,5 @@ function increaseLevel() {
 $(document).keypress(function() {
     if(level == 0) {
         nextSequence();
-        $("#level-title").text("level " + level);
     }
 });
