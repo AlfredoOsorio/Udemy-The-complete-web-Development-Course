@@ -60,15 +60,20 @@ $(".btn").click(function() {
     userClickedPattern.push(userChosenColour);
     animatePress(userChosenColour);
     playAudioButton(userChosenColour);
-    checkAnswer(userClickedPattern.length);
+    checkAnswer(userClickedPattern.length - 1);
 });
 
-funtion checkAnswer(currentLevel) {
-    if(userClickedPattern[currentLevel] == gamePattern[currentLevel]) {
+function checkAnswer(currentLevel) {
+    if((userClickedPattern[currentLevel]) == (gamePattern[currentLevel])) {
         console.log("success");
+        if(userClickedPattern.length == level) {
+            setTimeout(nextSequence(), 1000);
+        }
     }else{
         console.log("wrong");
     }
+    console.log(userClickedPattern[currentLevel]);
+    console.log(gamePattern[currentLevel]);
 }
 
 function increaseLevel() {
