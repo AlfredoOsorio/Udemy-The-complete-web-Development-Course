@@ -11,7 +11,7 @@ import ReactDOM from "react-dom";
 
 ReactDOM.render(
   <div>
-    <h1 style={.heading}>Good morning</h1>
+    <h1 style={heading}>Good morning</h1>
   </div>,
   document.getElementById("root")
 );
