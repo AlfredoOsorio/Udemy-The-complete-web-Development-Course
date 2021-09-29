@@ -2,9 +2,9 @@ import React from "react";
 
 function Note() {
   return (
-    <div>
-      <h1>title</h1>
-      <p>content</p>
+    <div className="note">
+      <h1>note title</h1>
+      <p>note content</p>
     </div>
   );
 }
