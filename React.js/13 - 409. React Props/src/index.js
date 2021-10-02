@@ -1,16 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Card from "./components/Card";
 
-function Card(props) {
-  return (
-    <div>
-      <h2>{props.name}</h2>
-      <img src={props.img} alt={props.alt} />
-      <p>{props.phoneNumber}</p>
-      <p>{props.email}</p>
-    </div>
-  );
-}
 ReactDOM.render(
   <div>
     <h1>My Contacts</h1>
