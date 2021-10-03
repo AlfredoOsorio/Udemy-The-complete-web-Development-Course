@@ -3,10 +3,10 @@ import React from "react";
 function Card(props) {
   return (
     <div>
-      <div ClassName="card">
-        <div ClassName="top">
+      <div>
+        <div>
           <h2>{props.name}</h2>
-          <img src={props.image} alt={props.imageAlt} />
+          <img src={props.img} alt={props.imageAlt} />
         </div>
         <div ClassName="bottom">
           <p>{props.phoneNumber}</p>
