@@ -11,9 +11,10 @@ function App() {
 
   function additem() {
     setItems((items) => [...items, item]);
+    setItem("");
   }
 
-  console.log(items);
+  const listItems = items.map((number) => <li>{number}</li>);
 
   return (
     <div className="container">
@@ -27,14 +28,12 @@ function App() {
           placeholder=""
           value={item}
         />
-        <button onClick={additem}>
+        <button type="button" onClick={additem}>
           <span>Add</span>
         </button>
       </div>
       <div>
-        <ul>
-          <li>A Item </li>
-        </ul>
+        <ul>{listItems}</ul>
       </div>
     </div>
   );
