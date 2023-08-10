@@ -5,3 +5,9 @@ h1 {
 .huge {
   font-size: 10rem;
 }
+
+button {
+  :active {
+    color: red;
+  }
+}
