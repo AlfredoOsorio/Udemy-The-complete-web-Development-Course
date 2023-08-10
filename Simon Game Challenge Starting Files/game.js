@@ -1,6 +1,6 @@
 const buttonColours = ["red", "blue", "green", "yellow"];
-var userClickedPattern = [];
-var gamePattern = [];
+var userClickedPattern = []; //saves color names
+var gamePattern = []; //saves color names
 
 var level = 0;
 
@@ -16,7 +16,7 @@ function blinkButton(buttonColor) {
 
 function animatePress(currentColour) {
     $("#" + currentColour).addClass("pressed");
-    setTimeout(function() {
+    setTimeout(function () {
         $("#" + currentColour).removeClass("pressed");
     }, 100);
 }
@@ -51,11 +51,20 @@ function nextSequence() {
     var randomNumber = Math.floor(Math.random() * 4);
     var randomChosenColour = buttonColours[randomNumber];
     gamePattern.push(randomChosenColour);
-    animatePress(randomChosenColour);
-    playAudioButton(randomChosenColour);
+    showFullSequence();
 }
 
-$(".btn").click(function() {
+function showFullSequence() {
+    for (let i = 0; i < level; i++) {
+        setTimeout(function () {
+            animatePress(gamePattern[i]);
+            playAudioButton(gamePattern[i]);
+        }, 700 * i);
+    }
+}
+
+
+$(".btn").click(function () {
     var userChosenColour = $(this).attr("id");
     userClickedPattern.push(userChosenColour);
     blinkButton(userChosenColour);
@@ -64,19 +73,20 @@ $(".btn").click(function() {
 });
 
 function checkAnswer(currentLevel) {
-    if((userClickedPattern[currentLevel]) == (gamePattern[currentLevel])) {
+    if ((userClickedPattern[currentLevel]) == (gamePattern[currentLevel])) {
         console.log("success");
-        if(userClickedPattern.length == gamePattern.length) {
-            setTimeout(function() {
+        if (userClickedPattern.length == gamePattern.length) {
+            $("#level-title").text("success!");
+            setTimeout(function () {
                 nextSequence();
             }, 1000);
         }
-    }else{
+    } else {
         console.log("wrong");
         $("#level-title").text("Game Over, Press any key to restart");
         wrongAudio.play();
         $("body").addClass("game-over");
-        setTimeout(function() {
+        setTimeout(function () {
             $("body").removeClass("game-over");
         }, 100);
         startOver();
@@ -93,8 +103,8 @@ function increaseLevel() {
     $("#level-title").text("level " + level);
 }
 
-$(document).keypress(function() {
-    if(level == 0) {
+$(document).keypress(function () {
+    if (level == 0) {
         nextSequence();
     }
 });
